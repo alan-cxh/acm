@@ -1,0 +1,75 @@
+package acm;
+
+import java.nio.Buffer;
+import java.util.Scanner;
+
+
+
+public class Topic_3 {
+	// 字符串转ASCII码
+	public static String stringToAscII (String string) {
+		// 将字符串转成数组
+		StringBuffer sbu = new StringBuffer();  
+		char[] chars = string.toCharArray();   
+		for (int i = 0; i < chars.length; i++) {  
+		    if(i != chars.length - 1)  
+		    {  
+		        sbu.append((int)chars[i]).append(",");  
+		    }  
+		    else {  
+		        sbu.append((int)chars[i]);  
+		    }  
+		}  
+		return sbu.toString();  
+	}
+	// ascii码 转成
+	public static String asciiToString(String string) {
+		StringBuffer sbu = new StringBuffer();  
+	    String[] chars = string.split(",");  
+	    for (int i = 0; i < chars.length; i++) {  
+	        sbu.append((char) Integer.parseInt(chars[i]));  
+	    }  
+		return sbu.toString();
+	}
+	public static void main(String[] args) {
+		StringBuffer buf = new StringBuffer();  
+		Scanner input = new Scanner(System.in);
+		String str = null;
+		str = stringToAscII(input.next());
+		System.out.println(str);
+		str = sort(str);
+		System.out.println(str);
+		// 排序
+		//String[] strings = str.split(",");
+		//System.out.println(str.toString());
+		
+	}
+	private static String sort(String str) {
+		String[] strings = str.split(",");	
+		int a, b, temp;
+		
+		// 冒泡排序
+		for (int i = 0; i < strings.length; i++) {
+			a = Integer.valueOf(strings[i]);
+			for (int j = 0; j < strings.length; j++) {
+				b = Integer.valueOf(strings[j]);
+				if (a > b) {
+					System.out.println(a+"  "+b);
+					temp = a;
+					a = b;
+					b = temp;
+					strings[i] = String.valueOf(b);
+				}
+			}
+			
+		}
+		for (String string : strings) {
+			System.out.println(string);
+		}
+		return str;
+		
+		
+		
+	}
+
+}
