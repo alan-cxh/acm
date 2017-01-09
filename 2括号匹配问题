@@ -1,0 +1,46 @@
+现在，有一行括号序列，请你检查这行括号是否配对。
+输入
+第一行输入一个数N（0<N<=100）,表示有N组测试数据。后面的N行输入多组输入数据，每组输入数据都是一个字符串S(S的长度小于10000，且S不是空串），测试数据组数少于5组。数据保证S中只含有"[","]","(",")"四种字符
+输出
+每组输入数据的输出占一行，如果该字符串中所含的括号是配对的，则输出Yes,如果不配对则输出No
+
+
+
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Topic_2 {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		int n = input.nextInt();
+		String string = null;
+		Stack<Character> stack = new Stack<Character>();
+		while ( n != 0) {
+			string = input.next();
+			// 判断字符串的长度是否为奇数
+			if (string.length() % 2 == 1) {
+				System.out.println("No");
+			} else {
+				stack.clear();
+				for (int i = 0; i < string.length(); i++) {
+					if (stack.isEmpty()) {
+						stack.push(string.charAt(i));
+					}else if (stack.peek().equals('[') && string.charAt(i) == ']'
+							|| stack.peek().equals('(') && string.charAt(i) == ')') {
+						stack.pop();
+					} else {
+						stack.push(string.charAt(i));
+					}
+				}
+				if (stack.isEmpty()) {
+					System.out.println("Yes");
+				} else {
+					System.out.println("No");
+				}
+			}
+			n --;
+		}
+	}
+}
