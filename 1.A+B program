@@ -1,0 +1,14 @@
+import java.util.*;
+
+class Topic_1 {
+
+	public static void main(String[] args) {
+	
+		int[] num = new int[3];
+		Scanner cin=new Scanner(System.in);
+		num[0] = cin.nextInt();
+		num[1] = cin.nextInt();
+		System.out.println(num[0] + num[1]);
+	}
+
+}
