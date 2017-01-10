@@ -1,0 +1,35 @@
+package acm;
+
+import java.util.*;
+
+class Topic_31 {
+	
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		// 输入数字的个数
+		//int n = in.nextInt();
+		// 存储数字
+		int[] num = new int[5];
+		String string = in.nextLine();
+		String[] strings = string.split(" ");
+		for (int i = 0; i < 5; i++) {
+			num[i] = Integer.parseInt(strings[i]);
+		}
+		// 从键盘输入5个数字, 并保存
+		/*for (int i = 0; i < 5; i++) {
+			num[i] = in.nextInt();
+		}*/
+		// 比较大小
+		int min = num[0], max = num[0];
+		for (int i = 1; i < num.length; i++) {
+			// 判断最小值
+			if (min > num[i]) {
+				min = num[i];
+				// 判断最大值	
+			} else if (max < num[i]) {
+				max = num[i];
+			}
+		}
+		System.out.println(min+ " " + max);
+	}
+}
