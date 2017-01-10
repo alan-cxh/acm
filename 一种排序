@@ -1,0 +1,138 @@
+
+现在有很多长方形，每一个长方形都有一个编号，这个编号可以重复；还知道这个长方形的宽和长，编号、长、宽都是整数；现在要求按照一下方式排序（默认排序规则都是从小到大）；
+
+1.按照编号从小到大排序
+
+2.对于编号相等的长方形，按照长方形的长排序；
+
+3.如果编号和长都相同，按照长方形的宽排序；
+
+4.如果编号、长、宽都相同，就只保留一个长方形用于排序,删除多余的长方形；最后排好序按照指定格式显示所有的长方形；
+输入
+第一行有一个整数 0<n<10000,表示接下来有n组测试数据；
+每一组第一行有一个整数 0<m<1000，表示有m个长方形；
+接下来的m行，每一行有三个数 ，第一个数表示长方形的编号，
+
+第二个和第三个数值大的表示长，数值小的表示宽，相等
+说明这是一个正方形（数据约定长宽与编号都小于10000）；
+输出
+顺序输出每组数据的所有符合条件的长方形的 编号 长 宽
+样例输入
+1
+8
+1 1 1
+1 1 1
+1 1 2
+1 2 1
+1 2 2
+2 1 1
+2 1 2
+2 2 1
+样例输出
+1 1 1
+1 2 1
+1 2 2
+2 1 1
+2 2 1
+
+
+
+
+package acm;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+class Rect{
+	int number;
+	int length;
+	int width;
+	public Rect() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Rect(int number, int length, int width) {
+		this.number = number;
+		this.length = length;
+		this.width = width;
+	}
+	
+}
+
+class MyComparator implements Comparator<Rect> {
+	@Override
+	public int compare(Rect o1, Rect o2) {
+		if(o1.number != o2.number){
+			return o1.number - o2.number;
+		}else if(o1.length != o2.length){
+			return o1.length - o2.length;
+		}else{
+			//说明id和length也相同
+			return o1.width - o2.width;
+		}
+	}
+}
+
+public class Topic_8 {
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		// 循环的次数
+		int n = in.nextInt();
+		// 接收矩形的个数
+		int count = in.nextInt();
+		Rect rect = null;
+		List<Rect> rectList = new ArrayList<Rect>();
+		String[] rects = new String[5];
+		while (n != 0) {
+			// 输入矩形, 如1 2 3
+			for (int i = 0; i < count; i++) {
+				String rectStr = in.next();
+				rects = rectStr.split(",");
+				rect = new Rect(Integer.parseInt(rects[0]), Integer.parseInt(rects[1]), Integer.parseInt(rects[2]));
+				// 将输入的几组数据全部保存在rectList列表中
+				rectList.add(rect);
+			}
+			// 排序
+			Collections.sort(rectList, new MyComparator());
+			
+			for (int i = 0; i < rectList.size(); i++) {
+				for( int k = 0; k < rectList.size(); k++ ) {
+					if ( i != k ) {
+						if ((rectList.get(i).number == rectList.get(k).number
+							&& 	rectList.get(i).length == rectList.get(k).length
+							&&  rectList.get(i).width == rectList.get(k).width)
+							||  (rectList.get(i).number == rectList.get(k).number 
+							&&  rectList.get(i).length == rectList.get(k).width
+							&&  rectList.get(i).width == rectList.get(k).length)) {
+							rectList.remove(i);
+						}
+					}
+				}
+			}
+			for(Rect r : rectList){
+				System.out.println(r.number+" "+r.length+" "+r.width);
+			}
+			n--;
+		}
+	}
+}
+
+
+/*
+ * 
+ * 
+ * 1
+8
+1,1,1
+1,1,1
+1,2,1
+1,1,2
+1,2,2
+2,1,1
+2,1,2
+2,2,1
+ * */
