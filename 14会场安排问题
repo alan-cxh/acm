@@ -1,0 +1,66 @@
+package acm;
+
+import java.util.*;
+
+// 会场时间类
+class ActiveTime implements Comparable<ActiveTime> {
+	private int begin;
+	private int end;
+
+	public int getBegin() {
+		return begin;
+	}
+
+	public void setBegin(int begin) {
+		this.begin = begin;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	/**
+	 * 按照结束时间从小到大排序
+	 */
+	@Override
+	public int compareTo(ActiveTime o) {
+
+		return this.end - o.end;
+	}
+
+}
+
+class Topic_14 {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		// 个数
+		int n = in.nextInt();
+		ActiveTime obj = null;
+		List<ActiveTime> list = new ArrayList<ActiveTime>();
+		for (int i = 0; i < n; i++) {
+			// 输入会场次数
+			int activeCount = in.nextInt();
+			for (int j = 0; j < activeCount; j++) {
+				obj = new ActiveTime();
+				obj.setBegin(in.nextInt());
+				obj.setEnd(in.nextInt());
+				list.add(obj);
+			}
+			Collections.sort(list);
+//			int current = -1;
+			int activeSum = 0;
+			for (ActiveTime activeTime : list) {
+				if (activeTime.getEnd() - activeTime.getBegin() > 1) {
+					activeSum++;
+//					current = activeTime.getEnd();
+				}
+			}
+			System.out.println("可以运行:" + activeSum);
+		}
+	}
+
+}
