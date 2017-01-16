@@ -1,0 +1,62 @@
+package acm;
+
+import java.util.*;
+
+class Topic_21 {
+
+	private static Scanner in = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		// 输出n组测试数据
+		int n = in.nextInt();
+		int[] v = new int[3];
+		int[] e = new int[3];
+		int flag = 0;
+		while (n != 0) {
+			v = array(v);
+			e = array(e);
+			// 排序找最大值
+			Arrays.sort(v);
+			Arrays.sort(e);
+			//e = array(e);
+			// 倒水算法
+			flag = pullWater(e, v);
+			System.out.println(flag);
+			n--;
+		}
+	}
+
+	/**
+	 * @param e
+	 *            表示当前水杯的水的体积
+	 * @param v
+	 *            表示水杯的体积
+	 * @return 返回值的状态， 其中-1 表示达不到目标状态， 其他值表示倒水次数
+	 */
+	private static int pullWater(int[] e, int[] v) {
+		int temp = 0;
+		int count = 0;
+		// 判断当前的水量是否满足需求水量
+		if (v[2] != (e[0] + e[1] + e[2]) || v[0] < e[0] || v[1] < e[1] || v[2] < e[2] || v[0] != e[0]) {
+			return -1;
+		}
+		// 有Arrays.sort()得知出v[2]的水杯的最大的，也因此水杯的是满的，而另外两个水杯的空的，即v[0] = v[1] = 0
+		// 计算e水杯的总的体技数
+		if (v[2] - e[2] != 0) {
+			if (v[1] == e[1]) {
+				count ++;
+			} else if(e[1] % v[0] == 0){
+				count = e[1] / v[0];
+			}
+		}
+		return ++count;
+	}
+
+	// 从键盘输入数据
+	private static int[] array(int[] array) {
+		for (int i = 0; i < array.length; i++) {
+			array[i] = in.nextInt();
+		}
+		return array;
+	}
+}
