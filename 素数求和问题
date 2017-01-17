@@ -1,0 +1,61 @@
+package acm;
+
+import java.util.*;
+
+class Topic_22 {
+
+	static Scanner in = new Scanner(System.in);
+	public static void main(String[] args) {
+		int[] arrInt;
+		boolean flag = false;
+		Stack<Integer> stack = new Stack<Integer>();
+		int sum = 0;
+		// 输入循环次数
+		int n = in.nextInt();
+		while(n -- != 0) {
+			// 每组测试数据第一行给你N，代表该组测试数据的数量。
+			int m = in.nextInt();
+			arrInt = getInput(m);
+			// 存放素数的栈要清空
+			stack.clear();
+			// 判断数据是否为素数
+			for (int i = 0; i < m; i++) {
+				flag = isPrime(arrInt[i]);
+				if (flag) {
+					stack.push(arrInt[i]);
+				}
+			}
+			sum = 0;// 求和总值sum清零
+			while (!stack.empty()) {
+				sum = sum + stack.peek(); // 实现栈顶元素的求和
+				stack.pop();// 栈顶求和后，将当前的栈顶处栈
+			}
+			System.out.println(sum);
+		}
+		
+	}
+	
+	private static boolean isPrime(int n) {
+		if (n <= 1) return true;
+		if (n == 2) {
+			return false;
+		}
+		for (int i = 2; i <= Math.sqrt(n); i++) {
+			if (n % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// 从键盘输入数据保存在数组中
+	private static int[] getInput(int m) {
+		// TODO Auto-generated method stub
+		int[] arrInt = new int[m];
+		for (int i = 0; i < m; i++) {
+			arrInt[i] = in.nextInt();
+		}
+		return arrInt;
+	}
+
+}
